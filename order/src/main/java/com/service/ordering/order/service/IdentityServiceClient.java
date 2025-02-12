@@ -16,15 +16,24 @@ public class IdentityServiceClient {
     @Value("${identity.service.url}")
     private String identityClientUrl;
 
+    @Value("${test:false}")
+    private boolean test;
+
     public IdentityServiceClient(RestTemplateBuilder templateBuilder){
         this.restTemplate = templateBuilder.build();
     }
 
-    public IdentityResponseDto checkUserValidation(Integer userId){
+    public String checkUserValidation(Integer userId){
 
-        String url = identityClientUrl + "/identity/" + userId;
+        if (test) {
+            // In test mode, return a dummy token with test data.
 
-        ResponseEntity<IdentityResponseDto> response = restTemplate.getForEntity(url , IdentityResponseDto.class);
+            return "eyJhbGciOiJub25lIn0.eyJ1c2VySWQiOjEwMSwiZW1haWwiOiJ0ZXN0QGVtYWlsLmNvbSIsInVzZXJOYW1lIjoiVGVzdCBVc2VyIiwibG9jYXRpb24iOiJVUyJ9.";
+        }
+
+        String url = identityClientUrl + "/user/get/" + userId;
+
+        ResponseEntity<String> response = restTemplate.getForEntity(url , String.class);
 
         return response.getBody();
     }

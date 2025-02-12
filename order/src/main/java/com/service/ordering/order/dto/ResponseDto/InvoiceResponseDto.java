@@ -5,18 +5,57 @@ import lombok.*;
 import java.util.List;
 
 @Data
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class InvoiceResponseDto {
+<<<<<<< HEAD
     private Integer userId;
     private String userMail;
     private Integer totalAmount;
 //    private Integer invoiceId;
     private List<InvoiceItemDto> items;
+=======
+    public Integer userId;
+    public String userMail;
+    public Integer totalAmount;
+    //private Integer invoiceId;
+    public List<InvoiceItemDto> items;
+>>>>>>> master
     //    private Integer orderId;
 
     // Getters and Setters
+
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public String getUserMail() {
+        return userMail;
+    }
+
+    public void setUserMail(String userMail) {
+        this.userMail = userMail;
+    }
+
+    public Integer getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(Integer totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public List<InvoiceItemDto> getItems() {
+        return items;
+    }
+
+    public void setItems(List<InvoiceItemDto> items) {
+        this.items = items;
+    }
 }

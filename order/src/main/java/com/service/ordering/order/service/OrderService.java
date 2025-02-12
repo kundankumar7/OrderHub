@@ -3,6 +3,7 @@ package com.service.ordering.order.service;
 
 import com.service.ordering.order.Enum.Status;
 import com.service.ordering.order.Utils.OrderServiceUtils;
+import com.service.ordering.order.Utils.TokenUtils;
 import com.service.ordering.order.dto.CartItemDto;
 import com.service.ordering.order.dto.InventoryItemDto;
 import com.service.ordering.order.dto.InventoryMerchantDto;
@@ -35,7 +36,7 @@ public class OrderService {
     private OrderRepo orderRepo;
 
     @Autowired
-    private static ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     @Autowired
     private OrderItemService orderItemService;
@@ -62,10 +63,12 @@ public class OrderService {
         /* get/UserValidation(orderRequestDto.getUserId()) , if the response is true then proceed further
          * else return Exception -INVALIDUserException */
 
-        IdentityResponseDto user = identityServiceClient.checkUserValidation(orderRequestDto.getUserId());
+        String token = identityServiceClient.checkUserValidation(orderRequestDto.getUserId());
+        IdentityResponseDto user = TokenUtils.decodeToken(token);
         if(user.getEmail() == null){
             throw new InvalidUserException("User Id" + orderRequestDto.getUserId() + "Is Invalid");
         }
+//        user.setLocation(orderRequestDto.getPinCode());
 
 
 
@@ -98,7 +101,7 @@ public class OrderService {
         Optional<String> productStock = OrderServiceUtils.compareInventoryItems(cartItems , inventoryItems.getInventoryItemList());
 
         if(productStock.isPresent()){
-            throw new ProductOutOfStockException("Product " + productStock.get() + " is out of stock");
+            throw new ProductOutOfStockException("Product " + productStock.get() + " is out of stock from Inventory.");
         }
 
 
@@ -204,11 +207,11 @@ public class OrderService {
     }
 
 
-    private static OrderResponseDto convertEntityToDto(Order order){
+    private OrderResponseDto convertEntityToDto(Order order){
         return modelMapper.map(order , OrderResponseDto.class);
     }
 
-    private static Order convertDtoToEntity(OrderRequestDto orderRequestDto){
+    private Order convertDtoToEntity(OrderRequestDto orderRequestDto){
         return modelMapper.map(orderRequestDto , Order.class);
     }
 
