@@ -9,20 +9,11 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class InvoiceResponseDto {
-<<<<<<< HEAD
-    private Integer userId;
-    private String userMail;
-    private Integer totalAmount;
-//    private Integer invoiceId;
-    private List<InvoiceItemDto> items;
-=======
     public Integer userId;
     public String userMail;
     public Integer totalAmount;
     //private Integer invoiceId;
     public List<InvoiceItemDto> items;
->>>>>>> master
-    //    private Integer orderId;
 
     // Getters and Setters
 
