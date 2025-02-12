@@ -74,14 +74,10 @@ public class InvoiceService {
         // 6. Create and save Invoice
         Invoice invoice = new Invoice();
         invoice.setGeneratedAt(LocalDateTime.now());
-<<<<<<< HEAD
-//        invoice.setOrder(order);
-=======
         invoice.setOrder(order);
         invoice.setUserId(userId);
         invoice.setTotalAmount(totalAmount);
         invoice.setUserMail(userMail);
->>>>>>> master
 
         Invoice savedInvoice = invoiceRepository.save(invoice);
 
@@ -90,10 +86,8 @@ public class InvoiceService {
         responseDto.setUserId(userId);
         responseDto.setUserMail(userMail);
         responseDto.setTotalAmount(totalAmount);
-<<<<<<< HEAD
+
 //        responseDto.setInvoiceId(savedInvoice.getInvoiceId());
-=======
->>>>>>> master
         responseDto.setItems(invoiceItems);
 
 
